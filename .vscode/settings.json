@@ -1,0 +1,10 @@
+{
+  "vitest.commandLine": "pnpm vitest",
+  "vitest.nodeEnv": {
+    "NODE_OPTIONS": "--no-warnings",
+  },
+  "vitest.enable": true,
+  "vitest.include": [
+    "tests/**/*.tests.{ts,tsx}"
+  ]
+}

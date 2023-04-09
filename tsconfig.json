@@ -1,0 +1,99 @@
+{
+  "maxNodeModuleJsDepth": 1,
+  "compilerOptions": {
+    "newLine": "lf",
+    "charset": "utf-8",
+    "emitBOM": false,
+    "noEmitOnError": true,
+    "baseUrl": ".",
+    /** Sync with other places of [path aliases](https://vite-plugin-ssr.com/path-aliases):
+      * vite.config.js#resolve.alias (for files processed by Vite)
+      * package.json#imports (for Node.js files not processed by Vite)
+      * tsconfig.json#compilerOptions.paths (for TypeScript)
+      * NOTE: [must use '#' for node aliases](https://nodejs.org/api/packages.html#subpath-imports)
+      */
+    "paths": {
+      "#types": [
+        "src/types/types.ts"
+      ],
+      "#shared/*": [
+        "src/lib/shared/*",
+      ],
+      "#client/*": [
+        "src/lib/client/*",
+      ],
+      "#server/*": [
+        "src/lib/server/*",
+      ],
+      "#src/*": [
+        "src/*"
+      ],
+      "#tests/*": [
+        "tests/*"
+      ],
+      "#root/*": [
+        "./*"
+      ],
+    },
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    // NodeNext doesn't work well with vite-plugin-ssr
+    // Module '"vite-plugin-ssr/client/router"' has no exported member 'PageContextBuiltInClient'
+    "moduleResolution": "Node",
+    "moduleDetection": "force",
+    "moduleSuffixes": [
+      ""
+    ],
+    "skipLibCheck": false,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "importsNotUsedAsValues": "error",
+    "preserveValueImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": [
+      "esnext",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "allowJs": true,
+    "checkJs": true,
+    "isolatedModules": true,
+    // for IoC container
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js",
+    "noEmit": true,
+  },
+  // overrides default, so be careful / https://www.typescriptlang.org/tsconfig#typeRoots
+  "typeRoots": [
+    "./node_modules/@types",
+    "./src/types"
+  ],
+  // https://www.typescriptlang.org/tsconfig#include // includes ts/tsx/d.ts
+  "include": [
+    "src/types",
+    "src",
+    "build",
+    "tests",
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ],
+  "ts-node": {
+    "esm": true,
+    // we don't need to check types for build scripts, leave it for IDE
+    "transpileOnly": true,
+    "experimentalResolver": true,
+    "experimentalSpecifierResolution": "node",
+    "swc": false
+  }
+}
